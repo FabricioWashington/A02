@@ -8,7 +8,7 @@ public class Cardapio {
 
     // Lista para armazenar os produtos, onde cada produto é representado por um
     // array de String
-    private static List<String[]> produtos = new ArrayList<>();
+    private static final List<String[]> produtos = new ArrayList<>();
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -22,14 +22,11 @@ public class Cardapio {
         System.out.println("Tela de Navegação");
         System.out.println();
         System.out.println("Cadastro de Produtos -> Digite '1' ");
-        System.out.println();
         System.out.println("Cardápio -> Digite '2' ");
-        System.out.println();
         System.out.println("Consultar Produto -> Digite '3' ");
-        System.out.println();
         System.out.println("Excluir Produto -> Digite '4' ");
-        System.out.println();
-        System.out.println("Sair -> Digite '5' ");
+        System.out.println("Atualizar Produto -> Digite '5' ");
+        System.out.println("Sair -> Digite '6' ");
 
         String resposta = sc.nextLine().toLowerCase();
 
@@ -47,6 +44,9 @@ public class Cardapio {
                 excluirProduto(sc);
                 break;
             case "5":
+                atualizarProduto(sc);
+                break;
+            case "6":
                 System.out.println("Saindo do sistema. Até logo!");
                 sc.close();
                 System.exit(0);
@@ -101,7 +101,7 @@ public class Cardapio {
         String[] produto = { codigo, nomeProduto, preco, ativo };
         produtos.add(produto);
 
-        System.out.println("Produto cadastrado com sucesso!");
+        System.out.println("Produto cadastrado com sucesso.");
     }
 
     public static void visualizarCardapio() {
@@ -146,8 +146,48 @@ public class Cardapio {
 
         for (String[] produto : produtos) {
             if (produto[0].equalsIgnoreCase(codigo)) {
-                produto[3] = "False"; // Marca o produto como desativado
-                System.out.println("Produto desativado com sucesso.");
+                produto[3] = "False"; // Marca o produto como excluido
+                System.out.println("Produto excluído com sucesso.");
+                return;
+            }
+        }
+
+        System.out.println("Produto não existe no cadastro.");
+    }
+
+    public static void atualizarProduto(Scanner sc) {
+        System.out.println("Digite o código do produto que deseja atualizar: ");
+        String codigo = sc.nextLine();
+
+        for (String[] produto : produtos) {
+            if (produto[0].equalsIgnoreCase(codigo)) {
+                System.out.println("Produto encontrado: ");
+                System.out.println("Nome atual: " + produto[1]);
+                System.out.println("Preço atual: " + produto[2]);
+
+                // Atualizando nome do produto
+                System.out.println("Digite o novo nome do produto (ou pressione ENTER para manter o atual): ");
+                String novoNome = sc.nextLine().toUpperCase();
+                if (!novoNome.isEmpty()) {
+                    if (novoNome.matches("[a-zA-Z0-9 ]{3,60}")) {
+                        produto[1] = novoNome;
+                    } else {
+                        System.out.println("Nome inválido! Mantendo o nome anterior.");
+                    }
+                }
+
+                // Atualizando preço do produto
+                System.out.println("Digite o novo preço do produto (ou pressione ENTER para manter o atual): ");
+                String novoPreco = sc.nextLine();
+                if (!novoPreco.isEmpty()) {
+                    if (novoPreco.matches("[0-9]+(\\.[0-9]{1,2})?") && Double.parseDouble(novoPreco) > 0) {
+                        produto[2] = novoPreco;
+                    } else {
+                        System.out.println("Preço inválido! Mantendo o preço anterior.");
+                    }
+                }
+
+                System.out.println("Produto atualizado com sucesso.");
                 return;
             }
         }
