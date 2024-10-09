@@ -28,19 +28,19 @@ public class Cardapio {
         System.out.println("Cardápio -> Digite '3' ");
         System.out.println("Sair -> Digite '4' ");
 
-        String resposta = sc.nextLine().toLowerCase();
+        int resposta = sc.nextInt();
 
         switch (resposta) {
-            case "1":
+            case 1:
                 telaCadastroProdutos(sc);
                 break;
-            case "2":
+            case 2:
                 telaCadastroClientes(sc); // Ainda a ser implementado
                 break;
-            case "3":
+            case 3:
                 visualizarCardapio();
                 break;
-            case "4":
+            case 4:
                 System.out.println("Saindo do sistema. Até logo!");
                 sc.close();
                 System.exit(0);
@@ -60,25 +60,17 @@ public class Cardapio {
             System.out.println("Atualizar Produto -> Digite '4' ");
             System.out.println("Voltar para Tela de Navegação -> Digite '5' ");
 
-            String resposta = sc.nextLine().toLowerCase();
+            int resposta = sc.nextInt();
 
             switch (resposta) {
-                case "1":
-                    telaCadastro(sc);
-                    break;
-                case "2":
-                    consultarProduto(sc);
-                    break;
-                case "3":
-                    excluirProduto(sc);
-                    break;
-                case "4":
-                    atualizarProduto(sc);
-                    break;
-                case "5":
+                case 1 -> telaCadastro(sc);
+                case 2 -> consultarProduto(sc);
+                case 3 -> excluirProduto(sc);
+                case 4 -> atualizarProduto(sc);
+                case 5 -> {
                     return; // Volta para a tela de navegação
-                default:
-                    System.out.println("Opção inválida, tente novamente.");
+                }
+                default -> System.out.println("Opção inválida, tente novamente.");
             }
         }
     }
@@ -238,25 +230,17 @@ public class Cardapio {
             System.out.println("Atualizar Cliente -> Digite '4' ");
             System.out.println("Voltar para Tela de Navegação -> Digite '5' ");
 
-            String resposta = sc.nextLine().toLowerCase();
+            int resposta = sc.nextInt();
 
             switch (resposta) {
-                case "1":
-                    cadastrarCliente(sc);
-                    break;
-                case "2":
-                    consultarCliente(sc);
-                    break;
-                case "3":
-                    excluirCliente(sc);
-                    break;
-                case "4":
-                    atualizarCliente(sc);
-                    break;
-                case "5":
+                case 1 -> cadastrarCliente(sc);
+                case 2 -> consultarCliente(sc);
+                case 3 -> excluirCliente(sc);
+                case 4 -> atualizarCliente(sc);
+                case 5 -> {
                     return;
-                default:
-                    System.out.println("Opção inválida, tente novamente.");
+                }
+                default -> System.out.println("Opção inválida, tente novamente.");
             }
         }
     }
