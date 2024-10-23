@@ -1,9 +1,10 @@
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import javax.swing.*;
 
 public class SistemaPessoa extends JFrame {
+    private JDesktopPane desktopPane;
+
     public SistemaPessoa() {
         // Configurações da Janela Principal
         setTitle("Sistema de Pessoa");
@@ -16,7 +17,7 @@ public class SistemaPessoa extends JFrame {
         // Menus principais
         JMenu cadastroMenu = new JMenu("Cadastro");
         JMenu visualizacaoMenu = new JMenu("Visualização");
-        JMenu sairMenu = new JMenu("Sair"); // Menu "Sair" diretamente
+        JMenu sairMenu = new JMenu("Sair");
 
         // Submenus de Cadastro e Visualização
         JMenuItem usuariosMenuItem = new JMenuItem("Usuários");
@@ -33,7 +34,7 @@ public class SistemaPessoa extends JFrame {
         // Adiciona menus à barra de menus
         menuBar.add(cadastroMenu);
         menuBar.add(visualizacaoMenu);
-        menuBar.add(sairMenu); // Adiciona o menu "Sair" diretamente
+        menuBar.add(sairMenu);
 
         // Configura a barra de menus
         setJMenuBar(menuBar);
@@ -46,17 +47,55 @@ public class SistemaPessoa extends JFrame {
             }
         });
 
+        // Criar o JDesktopPane
+        desktopPane = new JDesktopPane();
+        add(desktopPane, BorderLayout.CENTER);
+
+        // Função ao clicar no menu "Usuários" para abrir o cadastro de usuários
+        usuariosMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                abrirCadastroUsuario();
+            }
+        });
+
         // Criação do rodapé
         JPanel rodape = new JPanel();
         rodape.setLayout(new BorderLayout());
 
         // Texto do rodapé formatado
-        JLabel rodapeLabel = new JLabel("Versão: 12.1.2024    Usuário: denys.silva    Data de acesso: 20/09/2024 10:58",
+        JLabel rodapeLabel = new JLabel(
+                "Versão: 12.1.2024    Usuário: denys.silva    Data de acesso: 20/09/2024 10:58",
                 SwingConstants.CENTER);
         rodape.add(rodapeLabel, BorderLayout.CENTER);
 
         // Adicionar o rodapé à janela
         add(rodape, BorderLayout.SOUTH);
+    }
+
+    // Método para abrir o cadastro de usuários
+    private void abrirCadastroUsuario() {
+        // Verificar se já existe um JInternalFrame aberto
+        for (JInternalFrame frame : desktopPane.getAllFrames()) {
+            frame.dispose(); // Fecha qualquer frame aberto antes
+        }
+
+        // Criar e configurar um novo JInternalFrame para o cadastro
+        JInternalFrame cadastroFrame = new JInternalFrame("Cadastro de Usuários", true, true, true, true);
+        cadastroFrame.setSize(400, 300);
+        cadastroFrame.setVisible(true);
+
+        // Adicionar o painel de cadastro dentro do JInternalFrame
+        CadastroUsuario cadastroPanel = new CadastroUsuario();
+        cadastroFrame.add(cadastroPanel);
+
+        // Adicionar o JInternalFrame ao desktopPane
+        desktopPane.add(cadastroFrame);
+        try {
+            cadastroFrame.setSelected(true); // Definir o frame como ativo
+        } catch (java.beans.PropertyVetoException ex) {
+            ex.printStackTrace();
+        }
     }
 
     public static void main(String[] args) {
