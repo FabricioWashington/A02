@@ -1,3 +1,4 @@
+import cdpo.CadastroClientes;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -59,6 +60,13 @@ public class SistemaPessoa extends JFrame {
             }
         });
 
+        pessoasMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                abrirCadastroPessoa();
+            }
+        });
+
         // Criação do rodapé
         JPanel rodape = new JPanel();
         rodape.setLayout(new BorderLayout());
@@ -81,18 +89,37 @@ public class SistemaPessoa extends JFrame {
         }
 
         // Criar e configurar um novo JInternalFrame para o cadastro
-        JInternalFrame cadastroFrame = new JInternalFrame("Cadastro de Usuários", true, true, true, true);
-        cadastroFrame.setSize(400, 300);
-        cadastroFrame.setVisible(true);
+        JInternalFrame cadastroUsuarioFrame = new JInternalFrame("Cadastro de Usuários", true, true, true, true);
+        cadastroUsuarioFrame.setSize(400, 300);
+        cadastroUsuarioFrame.setVisible(true);
 
         // Adicionar o painel de cadastro dentro do JInternalFrame
-        CadastroUsuario cadastroPanel = new CadastroUsuario();
-        cadastroFrame.add(cadastroPanel);
+        CadastroUsuario cadastroUsuarioPanel = new CadastroUsuario();
+        cadastroUsuarioFrame.add(cadastroUsuarioPanel);
 
         // Adicionar o JInternalFrame ao desktopPane
-        desktopPane.add(cadastroFrame);
+        desktopPane.add(cadastroUsuarioFrame);
         try {
-            cadastroFrame.setSelected(true); // Definir o frame como ativo
+            cadastroUsuarioFrame.setSelected(true); // Definir o frame como ativo
+        } catch (java.beans.PropertyVetoException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void abrirCadastroPessoa() {
+        for (JInternalFrame frame : desktopPane.getAllFrames()) {
+            frame.dispose();
+        }
+        JInternalFrame cadastroPessoaFrame = new JInternalFrame("Cadastro de Pessoas", true, true, true, true);
+        cadastroPessoaFrame.setSize(400, 300);
+        cadastroPessoaFrame.setVisible(true);
+
+        CadastroPessoa cadastroPessoaPanel = new CadastroPessoa();
+        cadastroPessoaFrame.add(cadastroPessoaPanel);
+
+        desktopPane.add(cadastroPessoaFrame);
+        try {
+            cadastroPessoaFrame.setSelected(true);
         } catch (java.beans.PropertyVetoException ex) {
             ex.printStackTrace();
         }
