@@ -1,12 +1,9 @@
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
-import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
@@ -14,6 +11,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 public class CadastroUsuarios {
+
+    private Botoes botoes;
 
     public CadastroUsuarios() {
 
@@ -38,7 +37,7 @@ public class CadastroUsuarios {
         JRadioButton radioAtivo = new JRadioButton();
         painelCampos.add(radioAtivo);
 
-        JPanel painelBotoes = criarPainelBotoes(cadastroUsuarios);
+        JPanel painelBotoes = Botoes.criarPainelBotoes(cadastroUsuarios);
 
         cadastroUsuarios.add(painelCampos, BorderLayout.CENTER);
         cadastroUsuarios.add(painelBotoes, BorderLayout.SOUTH);
@@ -46,18 +45,4 @@ public class CadastroUsuarios {
         cadastroUsuarios.setVisible(true);
     }
 
-    public static JPanel criarPainelBotoes(JDialog dialog) {
-        JPanel painelBotoes = new JPanel(new FlowLayout());
-        String[] labels = {"Incluir", "Alterar", "Excluir", "Consultar", "Cancelar", "Sair"};
-        for (String label : labels) {
-            JButton button = new JButton(label);
-            if (label.equals("Sair")) {
-                button.addActionListener(e -> dialog.setVisible(false));
-            } else {
-                button.addActionListener(e -> JOptionPane.showMessageDialog(dialog, "Botão " + label + " clicado!"));
-            }
-            painelBotoes.add(button);
-        }
-        return painelBotoes;
-    }
 }

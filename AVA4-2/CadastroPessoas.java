@@ -11,7 +11,7 @@ import javax.swing.SwingConstants;
 
 public class CadastroPessoas {
 
-    private CadastroUsuarios cadastroUsuarios;
+    private Botoes botoes;
 
     public CadastroPessoas() {
     }
@@ -41,7 +41,7 @@ public class CadastroPessoas {
         JComboBox<String> comboSexo = new JComboBox<>(new String[]{"Masculino", "Feminino"});
         painelCampos.add(comboSexo);
 
-        JPanel painelBotoes = CadastroUsuarios.criarPainelBotoes(cadastroPessoas);
+        JPanel painelBotoes = Botoes.criarPainelBotoes(cadastroPessoas);
 
         cadastroPessoas.add(painelCampos, BorderLayout.CENTER);
         cadastroPessoas.add(painelBotoes, BorderLayout.SOUTH);
